@@ -1,2 +1,4 @@
 print("Hello!")
-9+3
+a = 3
+b = 6
+print(a+b)
