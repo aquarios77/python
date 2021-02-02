@@ -56,7 +56,7 @@ while not pass_is_good:
    
     if check[5]:
         print("Your password does not contain consecutive symbols, +")
-    if check[5]:
+    if check[6]:
         print("Your password does not contain backward consecutive symbols, +")    
     
     if all(check): 
