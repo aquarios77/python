@@ -1,5 +1,7 @@
-# -*- coding: utf-8 -*-
+
 """
+Antons Sincovs, eksamena uzdevums # 1
+
 Pieņemsim, ka sportistam ir mērķis dienā noskriet x kilometrus. 
 Pirmajā dienā viņš noskrien y
 kilometrus, katrā nākamajā dienā par 10 procentiem vairāk nekā iepriekšējā. 
