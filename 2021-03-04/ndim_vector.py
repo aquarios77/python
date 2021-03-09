@@ -76,9 +76,13 @@ class ndimVector:
                 return sum(mul)
             else:
                 raise ValueError("Dimensions does not match!")
+                #NdimVector([si * other for si in self.koordinates]) - vector * number
+                #return sum([self.koordinates[i] * other.koordinates[i] for i in range(len(self.koordinates))]) - vector * vector
+
         
     def __eq__(self, other):
-        return (self.module() == other.module())
+        if isinstance(other, ndimVector) and len(other.coord) == len(self.coord):
+            return (self.module() == other.module())
     
     def __ne__(self, other):
         return (self.module() != other.module())
