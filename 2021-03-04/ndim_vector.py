@@ -20,7 +20,12 @@ class ndimVector:
             for i in range(len(self_li)):
                 summa.append(self_li[i] + other_li[i])
             return ndimVector(tuple(summa))
-       
+      
+    def __str__(self):
+        s = "n-->"
+        for i in range(len(self.coord)):
+            s += " dim" + str(i) +":" + str(self.coord[i]) 
+        return s + " <--n"
    
     def __sub__(self, other):
        return ndimVector(self.x - other.x, self.y - other.y)
@@ -58,6 +63,7 @@ class ndimVector:
     
     
     
-    
+    '''
     def __str__(self):
         return '--> x:' + str(self.x) + ' y:' + str(self.y) + ' <--'
+    '''
