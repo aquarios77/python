@@ -20,27 +20,62 @@ class ndimVector:
             for i in range(len(self_li)):
                 summa.append(self_li[i] + other_li[i])
             return ndimVector(tuple(summa))
+        else:
+            raise ValueError("Dimensions does not match!")
       
     def __str__(self):
         s = "n-->"
         for i in range(len(self.coord)):
-            s += " dim" + str(i) +":" + str(self.coord[i]) 
+            s += " x" + str(i + 1) +"=" + str(self.coord[i]) 
         return s + " <--n"
    
     def __sub__(self, other):
-       return ndimVector(self.x - other.x, self.y - other.y)
+       if len(other.coord) == len(self.coord):
+           diff = []
+           self_li = list(self.coord)
+           other_li = list(other.coord)
+           for i in range(len(self_li)):
+               diff.append(self_li[i] - other_li[i])
+           return ndimVector(tuple(diff))
+       else:
+           raise ValueError("Dimensions does not match!")
 
     def __mul__(self, other):
         if isinstance(other, (int, float)):
-            return ndimVector(self.x * other, self.y * other)
+            mul = []
+            self_li = list(self.coord)
+            for i in range(len(self_li)):
+               mul.append(self_li[i] * other)
+            return ndimVector(tuple(mul))
         elif isinstance(other, ndimVector):
-            return self.x * other.x + self.y * other.y
+            if len(other.coord) == len(self.coord):
+                mul = []
+                self_li = list(self.coord)
+                other_li = list(other.coord)
+                for i in range(len(self_li)):
+                    mul.append(self_li[i] * other_li[i])
+                return sum(mul)
+            else:
+                raise ValueError("Dimensions does not match!")
+
     
     def __rmul__(self, other):
         if isinstance(other, (int, float)):
-            return ndimVector(self.x * other, self.y * other)
+            mul = []
+            self_li = list(self.coord)
+            for i in range(len(self_li)):
+               mul.append(self_li[i] * other)
+            return ndimVector(tuple(mul))
         elif isinstance(other, ndimVector):
-            return self.x * other.x + self.y * other.y 
+            if len(other.coord) == len(self.coord):
+                mul = []
+                self_li = list(self.coord)
+                other_li = list(other.coord)
+                for i in range(len(self_li)):
+                    mul.append(self_li[i] * other_li[i])
+                return sum(mul)
+            else:
+                raise ValueError("Dimensions does not match!")
         
     def __eq__(self, other):
         return (self.module() == other.module())
