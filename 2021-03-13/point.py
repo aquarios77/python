@@ -6,3 +6,6 @@ class Point:
     
     def __str__(self):
         return f'({self.x}, {self.y})'
+    
+    def distance_from_origin(self):
+        return round((self.x**2 + self.y**2)**0.5, 2)
