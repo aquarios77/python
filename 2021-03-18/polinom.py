@@ -33,5 +33,5 @@ class Polinom:
                     continue
             else:
                 string += str(self.koefic[-1])
-        return string.replace('1','')
+        return string
             
