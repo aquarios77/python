@@ -26,14 +26,14 @@ header01 = ['Name', 'Surname', 'e-mail']
 header02 = ['Name', 'Surname', 'e-mail', 'Workshop']
 
 # attended both seminars and elegible for a certificate
-with open('saraksts_seritifikatiem.csv' , 'w' , newline='') as f:
+with open('saraksts_sertifikatiem.csv' , 'w' , newline='') as f:
     csv_writer = csv.writer(f)
     csv_writer.writerow(header01)
     for row in (se2 & se1):
         csv_writer.writerow(row)
     
 # attended only 1 seminar and have to finsh the course   
-with open('saraksts_turpninat.csv' , 'w' , newline='') as f:
+with open('saraksts_turpinat.csv' , 'w' , newline='') as f:
     csv_writer = csv.writer(f)
     csv_writer.writerow(header02)
     for row in (se1 - se2):
