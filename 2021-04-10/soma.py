@@ -58,7 +58,7 @@ class Soma:
           
     # return an object of type <Prece> with "i" index    
     def __getitem__(self, i):
-        if (abs(i) <= len(self.saturs) - 1): # checking if the index argument passed is in current object's range , abs() - because index can be nagative counting from the list's end
+        if (abs(i) <= len(self.saturs) - 1): # checking if the index argument passed is in current object's range , abs() - because index can be negative counting from the list's end
              return self.saturs[i]
         else:
             raise Exception("Sorry, but the index: ", i, " you specified is out of objects Bag \"", self.ka_mani_sauc() , " range!") # raise an exception if the index is out of current object's range
@@ -66,7 +66,7 @@ class Soma:
     # return an object of type <Prece> with "i" index    
     def __setitem__(self , i , lieta):
         if isinstance(lieta, Prece): # checking if the argument passed is of type <Prece>
-            if (abs(i) <= len(self.saturs) - 1): # checking if the index argument passed is in current object's range , abs() - because index can be nagative counting from the list's end
+            if (abs(i) <= len(self.saturs) - 1): # checking if the index argument passed is in current object's range , abs() - because index can be negative counting from the list's end
                 self.saturs[i] = lieta
             else:
                 raise Exception("Sorry, but the index: ", i, " you specified is out of objects Bag \"", self.ka_mani_sauc() , " range!") # raise an exception if the index is out of current object's range
@@ -88,4 +88,10 @@ class Soma:
     
     def __repr__(self):
         return '(Name:' + self.name + ', Vol:' + str(self.volume) + ')'
+    
+    def bag_swap(self, other_bag):
+        if isinstance(other_bag, Soma):
+            self.saturs , other_bag.saturs = other_bag.saturs , self.saturs
+        else:
+            raise Exception("Sorry, but you have to pass an object of type <Soma>") # raise an exception if the argument passed is of type <Soma>
     

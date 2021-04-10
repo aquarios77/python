@@ -21,7 +21,7 @@ class Prece:
     
     # overriding default str() method
     def __str__(self):
-         return '<prece> ' + self.name + ' , ' + str(self.price) + ' </prece>'
+         return '( ' + self.name + ' , ' + str(self.price) + ' )'
      
      # overriding default repr() method
     def __repr__(self):
