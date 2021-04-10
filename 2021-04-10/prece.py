@@ -19,10 +19,10 @@ class Prece:
     def preces_cena(self):
         return self.price
     
-    # overridig default str() method
+    # overriding default str() method
     def __str__(self):
-         return '<prece> ' + self.name + ' , ' + self.price + ' </prece>'
+         return '<prece> ' + self.name + ' , ' + str(self.price) + ' </prece>'
      
-     # overridig default repr() method
+     # overriding default repr() method
     def __repr__(self):
          return '(' + self.name + ',' + str(self.price) + ')'

@@ -7,8 +7,16 @@ Created on Sat Apr 10 10:16:57 2021
 
 from soma import Soma
 from random import randint
+from random import choice
 from prece import Prece 
 import csv
+
+def all_bags_full(bags):
+    for bag in bags:
+        if bag.vai_tuksa():
+            return False 
+        else:
+            return True    
 
 prece_li = [] # list for <Prece> objects
 
@@ -20,14 +28,39 @@ with open('preces_cenas.csv') as f:
         prece_li.append(Prece(row[0],float(row[1]))) # creating <Prece> objects and appending them the object list
         
 print(prece_li)
+
+print()
 #==========================================================================================================
 
 # 3.2.2.
 soma_li = [] # list for <Soma> objects
-for i in range(3):
+for i in range(5):
     soma_li.append(Soma(('Bag #' + str(i)), randint(1, 5)))
 
 print(soma_li)
+
+print()
 #==========================================================================================================
 
 # 3.2.3.
+for soma in soma_li:
+    while not soma.vai_pilna():
+        soma.ielikt(choice(prece_li))
+        
+        
+#==========================================================================================================
+
+# 3.2.4.
+
+for soma in soma_li:
+    print(soma)
+    print(soma.summa())
+
+print()    
+#==========================================================================================================
+
+# 3.2.5.
+
+print(sum([soma.summa() for soma in soma_li]))
+        
+    

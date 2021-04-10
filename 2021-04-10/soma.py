@@ -19,7 +19,7 @@ class Soma:
     
     # method returns is_full status
     def vai_pilna(self):
-        if len(self.saturs) == 0:
+        if len(self.saturs) < self.volume:
             return False
         else:
             return True
@@ -38,7 +38,7 @@ class Soma:
                 self.saturs.append(lieta) # put an object <Prece> into object <Soma>
                 return True
             else:
-                raise Exception("Sorry, but the Bag \"", self.ka_mani_sauc() , " is full!") # raise an exception if object <Soma> is full
+               # raise Exception("Sorry, but the Bag \"", self.ka_mani_sauc() , " is full!") # raise an exception if object <Soma> is full
                 return False
         else:
            raise Exception("Sorry, but you have to pass an object of type <Prece>") # raise an exception if the argument passed is of type <Prece>
@@ -52,7 +52,7 @@ class Soma:
             return None # if object <Soma> is empty
         
     # method removes all objects of type <Prece> from the <Soma> object
-    def iztushot(self):
+    def iztukshot(self):
         if not self.vai_tuksa(): # checking if oject <Soma> is already not empty
            self.saturs.clear() # clearing the list of type <Prece> objects in object <Soma>
           
@@ -78,16 +78,13 @@ class Soma:
         if self.vai_tuksa(): # checking if the <Soma> is not empty
             return 0.0
         else:
-            return sum([float(cena) for cena in self.saturs.preces_cena()]) # int() in case the user created <Prece> objects with non-numeric price
+            return sum([float(prece.preces_cena()) for prece in self.saturs]) # int() in case the user created <Prece> objects with non-numeric price
     
     def __str__(self):
-        if self.vai_tuksa(): # checking if the <Soma> is not empty
-            return '<no products>'
-        else:  
-            my_list = []
-            for name in self.saturs.preces_nosaukums():
-                my_list.append(name)
-            return ','.join(my_list)
+        my_list = []
+        for prece in self.saturs:
+            my_list.append(str(prece))
+        return self.name + ':' + ','.join(my_list)
     
     def __repr__(self):
         return '(Name:' + self.name + ', Vol:' + str(self.volume) + ')'
