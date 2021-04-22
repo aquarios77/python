@@ -1,3 +1,11 @@
+'''
+Antons Sincovs
+
+random number guessing game
+
+'''
+
+
 import random
 start = int(input("Enter start integer: "))
 end = int(input("Enter end integer: "))
