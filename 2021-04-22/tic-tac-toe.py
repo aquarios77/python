@@ -1,3 +1,5 @@
+# optimized almost all repeatative button generations and corresponding tasks
+
 import tkinter as tk
 from tkinter import messagebox
 
@@ -5,15 +7,15 @@ speletajs = True  # True == X, False = O
 skaits = 0
 
 
-def click_poga(poga):
-    global speletajs, skaits
-    if poga['text'] == ' ' and speletajs:
-        poga['text'] = 'X'
+def click_poga(num):
+    global speletajs , skaits , pogas
+    if pogas[num]['text'] == ' ' and speletajs:
+        pogas[num]['text'] = 'X'
         speletajs = False
         skaits += 1
         parbaudit_uzvaru()
-    elif poga['text'] == ' ' and not speletajs:
-        poga['text'] = 'O'
+    elif pogas[num]['text'] == ' ' and not speletajs:
+        pogas[num]['text'] = 'O'
         speletajs = True
         skaits += 1
         parbaudit_uzvaru()
@@ -22,16 +24,15 @@ def click_poga(poga):
 
 
 def uzvara(s):
-
-    
-    if (poga_1['text'] == s and poga_2['text'] == s and poga_3['text'] == s or
-        poga_4['text'] == s and poga_5['text'] == s and poga_6['text'] == s or
-        poga_7['text'] == s and poga_8['text'] == s and poga_9['text'] == s or
-        poga_1['text'] == s and poga_4['text'] == s and poga_7['text'] == s or
-        poga_2['text'] == s and poga_5['text'] == s and poga_8['text'] == s or
-        poga_3['text'] == s and poga_6['text'] == s and poga_9['text'] == s or
-        poga_1['text'] == s and poga_5['text'] == s and poga_9['text'] == s or
-        poga_3['text'] == s and poga_5['text'] == s and poga_7['text'] == s):
+   
+    if (pogas[0]['text'] == s and pogas[1]['text'] == s and pogas[2]['text'] == s or
+        pogas[3]['text'] == s and pogas[4]['text'] == s and pogas[5]['text'] == s or
+        pogas[6]['text'] == s and pogas[7]['text'] == s and pogas[8]['text'] == s or
+        pogas[0]['text'] == s and pogas[3]['text'] == s and pogas[6]['text'] == s or
+        pogas[1]['text'] == s and pogas[4]['text'] == s and pogas[7]['text'] == s or
+        pogas[2]['text'] == s and pogas[5]['text'] == s and pogas[8]['text'] == s or
+        pogas[0]['text'] == s and pogas[4]['text'] == s and pogas[8]['text'] == s or
+        pogas[2]['text'] == s and pogas[4]['text'] == s and pogas[6]['text'] == s):
         return True
     else:
         return False
@@ -42,49 +43,26 @@ def parbaudit_uzvaru():
     global uzvaretajs
     uzvaretajs = False
     if uzvara('X'):  # uzvareja X
-        messagebox.showinfo('TicTacToe', 'Speletajs X ir uzvarejis')
+        messagebox.showinfo('TicTacToe', 'Player "X" has won!')
         uzvaretajs = True
     elif uzvara('O'):  # uzvareja O
-        messagebox.showinfo('TicTacToe', 'Speletajs O ir uzvarejis')
+        messagebox.showinfo('TicTacToe', 'Player "O" has won!')
         uzvaretajs = True
     elif skaits == 9 and not uzvaretajs:  # neizskirts
-        messagebox.showinfo('TicTacToe', 'Neizskirts')
+        messagebox.showinfo('TicTacToe', 'It\'s a Draw!')
         izslegt_pogu()
 
 
 def izslegt_pogu():
-
-    poga_1.config(state=tk.DISABLED)
-    poga_2.config(state=tk.DISABLED)
-    poga_3.config(state=tk.DISABLED)
-    poga_4.config(state=tk.DISABLED)
-    poga_5.config(state=tk.DISABLED)
-    poga_6.config(state=tk.DISABLED)
-    poga_7.config(state=tk.DISABLED)
-    poga_8.config(state=tk.DISABLED)
-    poga_9.config(state=tk.DISABLED)
+    
+    for i in range(9):
+        pogas[i].config(state=tk.DISABLED)
     
 def atiestatit():
-
-    poga_1.config(state=tk.NORMAL)
-    poga_2.config(state=tk.NORMAL)
-    poga_3.config(state=tk.NORMAL)
-    poga_4.config(state=tk.NORMAL)
-    poga_5.config(state=tk.NORMAL)
-    poga_6.config(state=tk.NORMAL)
-    poga_7.config(state=tk.NORMAL)
-    poga_8.config(state=tk.NORMAL)
-    poga_9.config(state=tk.NORMAL)
     
-    poga_1['text'] = ' '
-    poga_2['text'] = ' '
-    poga_3['text'] = ' '
-    poga_4['text'] = ' '
-    poga_5['text'] = ' '
-    poga_6['text'] = ' '
-    poga_7['text'] = ' '
-    poga_8['text'] = ' '
-    poga_9['text'] = ' '
+    for i in range(9):
+        pogas[i].config(state=tk.NORMAL)
+        pogas[i]['text'] = ' '
     
     global uzvaretajs , skaits , speletajs
     uzvaretajs = False
@@ -94,9 +72,9 @@ def atiestatit():
     
 def info():
     jauns_logs = tk.Toplevel()
-    jauns_logs.title("Par programmu")
+    jauns_logs.title("About")
     jauns_logs.geometry("300x300")
-    apraksts = tk.Label(jauns_logs, text = "Te bus info par speli")
+    apraksts = tk.Label(jauns_logs, text = "Tic-Tac-Toe \n Good Old Game :)")
     apraksts.grid(row = 0 , column = 0)
     
 mans_logs = tk.Tk()
@@ -110,34 +88,15 @@ galvena_izvelne.add_command(label="par programmu" , command=info)
 iespejas.add_command(label="Jauna spele" , command=atiestatit)
 iespejas.add_command(label="Iziet" , command=mans_logs.destroy)
 
-poga_1 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_1))
-poga_2 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_2))
-poga_3 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_3))
-poga_4 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_4))
-poga_5 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_5))
-poga_6 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_6))
-poga_7 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_7))
-poga_8 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_8))
-poga_9 = tk.Button(mans_logs, text=" ", width=6, height=3, font=(
-    "Helvetica", 24), command=lambda: click_poga(poga_9))
+# array for all buttons
+pogas = []
 
-poga_1.grid(row=0, column=0)
-poga_2.grid(row=0, column=1)
-poga_3.grid(row=0, column=2)
-poga_4.grid(row=1, column=0)
-poga_5.grid(row=1, column=1)
-poga_6.grid(row=1, column=2)
-poga_7.grid(row=2, column=0)
-poga_8.grid(row=2, column=1)
-poga_9.grid(row=2, column=2)
-
+# j = i because without it lambda function glitches in array, collecting buttons into array with click() lambda function assigned
+for i in range(0 , 9):
+    pogas.append( tk.Button(mans_logs, text=" ", width=6, height=3, font=(
+    "Helvetica", 24), command=lambda j = i: click_poga(j)))
+# cyclical generation of button grid
+for i in range(9):
+    pogas[i].grid(row = int(i/3) , column = i%3)
 
 mans_logs.mainloop()
