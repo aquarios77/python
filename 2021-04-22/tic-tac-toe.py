@@ -2,9 +2,13 @@
 
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 
 speletajs = True  # True == X, False = O
 skaits = 0
+winX = 0
+winO = 0
+draws = 0
 
 
 def click_poga(num):
@@ -33,22 +37,28 @@ def uzvara(s):
         pogas[2]['text'] == s and pogas[5]['text'] == s and pogas[8]['text'] == s or
         pogas[0]['text'] == s and pogas[4]['text'] == s and pogas[8]['text'] == s or
         pogas[2]['text'] == s and pogas[4]['text'] == s and pogas[6]['text'] == s):
+    
+        label = ttk.Label(mans_logs, text = stats() , font=("Helvetica" , 18))
+        label.grid(column = 4, row = 0 , rowspan=4 )
         return True
     else:
         return False
     
 
 def parbaudit_uzvaru():
-
-    global uzvaretajs
+    
+    global uzvaretajs, winX, winO, draws
     uzvaretajs = False
     if uzvara('X'):  # uzvareja X
         messagebox.showinfo('TicTacToe', 'Player "X" has won!')
         uzvaretajs = True
+        winX += 1
     elif uzvara('O'):  # uzvareja O
         messagebox.showinfo('TicTacToe', 'Player "O" has won!')
         uzvaretajs = True
+        winO += 1
     elif skaits == 9 and not uzvaretajs:  # neizskirts
+        draws += 1
         messagebox.showinfo('TicTacToe', 'It\'s a Draw!')
         izslegt_pogu()
 
@@ -69,7 +79,11 @@ def atiestatit():
     speletajs = False
     skaits = 0
    
-    
+def stats():
+    global winX , winO , draws
+    message = "-===GAME STATS===- \n Player X: " + str(winX) + " wins , " + str(winO) + " losses \n Player O: " + str(winO) + " wins , " + str(winX) + " losses" 
+    return message
+
 def info():
     jauns_logs = tk.Toplevel()
     jauns_logs.title("About")
@@ -97,6 +111,9 @@ for i in range(0 , 9):
     "Helvetica", 24), command=lambda j = i: click_poga(j)))
 # cyclical generation of button grid
 for i in range(9):
-    pogas[i].grid(row = int(i/3) , column = i%3)
+    pogas[i].grid(row = int(i / 3) , column = i % 3)
+
+stats()
+    
 
 mans_logs.mainloop()
